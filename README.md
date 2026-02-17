@@ -117,6 +117,43 @@ direction LR
     Pedido "*" --> "1" StatusPedido : possui
 ```
 
+
+### 2. Casos de Uso (Perfis de Acesso)
+O sistema divide claramente as responsabilidades entre os clientes do delivery e a gestão do restaurante (Backoffice e Monitor da Cozinha):
+
+```mermaid
+flowchart LR
+    %% Atores
+    Admin((👨‍🍳 Administrador))
+    Cliente((🍔 Cliente))
+
+    %% Sistema do Cliente
+    subgraph App [App do Cliente]
+        C1([Explorar Cardápio])
+        C2([Montar Carrinho])
+        C3([Finalizar Pedido])
+    end
+
+    %% Sistema do Admin
+    subgraph Backoffice [Painel Admin & Cozinha]
+        A1([Gerenciar Categorias])
+        A2([Cadastrar/Editar Produtos])
+        A3([Visualizar/Desativar Clientes])
+        A4([Avançar Status do Pedido])
+    end
+
+    %% Relações do Cliente
+    Cliente --> C1
+    Cliente --> C2
+    Cliente --> C3
+
+    %% Relações do Admin
+    Admin --> A1
+    Admin --> A2
+    Admin --> A3
+    Admin --> A4
+```
+
 ✨ Funcionalidades Principais
 Autenticação Segura: Login via Token JWT com controle de acesso rigoroso baseado em cargos (ROLE_ADMIN vs ROLE_USER).
 
@@ -133,6 +170,7 @@ Worker processa e atualiza para PAGO ou CANCELADO.
 Controle rígido de transição de status no Monitor da Cozinha (PENDENTE ➔ PAGO ➔ PREPARO ➔ PRONTO ➔ FINALIZADO), impedindo avanços ilegais no fluxo.
 
 Documentação Interativa: Swagger UI disponível para testes manuais.
+
 
 ⚙️ Como Rodar o Projeto
 Pré-requisitos
@@ -158,12 +196,14 @@ Bash
 ./mvnw spring-boot:run
 Acesse a Documentação: Abra o navegador em: http://localhost:8080/swagger-ui.html
 
+
 🧪 Estratégia de Testes
 O projeto adota uma pirâmide de testes sólida, com foco em testes de integração fidedignos.
 
 Unitários: Regras de negócio isoladas com Mockito.
 
 Integração (E2E): Utilizamos Testcontainers. Isso significa que, ao rodar mvn verify, o projeto sobe containers reais do MySQL, Redis e RabbitMQ descartáveis. Não usamos banco em memória (H2), garantindo que o teste reflita exatamente o ambiente de produção.
+
 
 🔄 CI/CD
 O projeto conta com um pipeline configurado no GitHub Actions que:
