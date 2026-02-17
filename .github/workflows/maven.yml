@@ -1,0 +1,28 @@
+name: CI PedeAi - Testes Automatizados
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Dar permissão de execução para o Maven Wrapper
+        run: chmod +x mvnw
+
+      - name: Executar testes e build com Maven (Testcontainers)
+        run: ./mvnw clean verify
