@@ -13,7 +13,6 @@ import com.PedeAi.pedido.domain.PedidoRepository;
 import com.PedeAi.pedido.domain.StatusPedido;
 import com.PedeAi.pedido.infra.web.dto.ItemPedidoRequest;
 import com.PedeAi.pedido.infra.web.dto.PedidoRequest;
-import com.PedeAi.pedido.infra.web.dto.PedidoResponse;
 import com.PedeAi.seguranca.domain.Usuario;
 import com.PedeAi.seguranca.domain.UsuarioRepository;
 import com.PedeAi.seguranca.domain.UsuarioRole;

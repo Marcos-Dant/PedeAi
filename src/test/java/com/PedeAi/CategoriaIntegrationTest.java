@@ -41,17 +41,17 @@ public class CategoriaIntegrationTest {
     @Autowired private CategoriaRepository categoriaRepository;
     @Autowired private ProdutoRepository produtoRepository;
 
-    // ✅ MySQL (Igual você tinha)
+
     @Container
     @ServiceConnection
     static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0");
 
-    // ✅ RabbitMQ (Adicionado para o Spring não falhar na subida)
+
     @Container
     @ServiceConnection
     static RabbitMQContainer rabbitmq = new RabbitMQContainer(DockerImageName.parse("rabbitmq:3.10-management"));
 
-    // ✅ Redis (Adicionado GenericContainer compatível com Mac para o Spring não falhar)
+
     @Container
     static GenericContainer<?> redis = new GenericContainer<>(DockerImageName.parse("redis:7.0"))
             .withExposedPorts(6379);
